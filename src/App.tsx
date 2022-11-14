@@ -1,8 +1,8 @@
 import React from 'react';
 import { 
   retrieveMembersByOrg, 
-  getRandomValueFromRange,
-  loginLength 
+  loginLength,
+  randomIntFromInterval
 } from './services';
 
 // props
@@ -13,7 +13,7 @@ function App() {
   React.useEffect(() => {
     retrieveMembersByOrg('roche')
       .then((members) => {
-        const indexValue = getRandomValueFromRange(10, members.length - 1);
+        const indexValue = randomIntFromInterval(1, members.length) - 1;
         const secretLogin = members[indexValue];
         const secretLoginLength = loginLength(secretLogin);
         console.log(secretLogin, secretLoginLength);

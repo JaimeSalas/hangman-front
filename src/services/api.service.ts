@@ -1,5 +1,5 @@
 // This service will interact with GitHub REST API
-const maMembersToLogins = (members: any[]): string[] =>  members.map(m => m.login);
+const mapMembersToLogins = (members: any[]): string[] =>  members.map(m => m.login);
 
 export const retrieveMembersByOrg = (org: string): Promise<string[]> => {
     // https://api.github.com/orgs/{organization name}/members
