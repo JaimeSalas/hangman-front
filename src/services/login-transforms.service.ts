@@ -1,0 +1,1 @@
+export const loginLength = (login: string): number => (login) ? login.length : 0;
