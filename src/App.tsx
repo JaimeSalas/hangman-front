@@ -1,15 +1,19 @@
 import React from 'react';
 import { 
   retrieveMembersByOrg, 
-  // loginLength,
   randomIntFromInterval
 } from './services';
 
 import { CharPlaceholderComponent } from './components';
 
+interface SecretChar {
+  char: string;
+  show: boolean;
+}
+
 function App() {
   const [secret, setSecret] = React.useState('');
-  const [show, setShow] = React.useState(false);
+  const [secretCharCollection, setSecretCharCollection] = React.useState<SecretChar[]>([]);
 
   React.useEffect(() => {
     retrieveMembersByOrg('roche')
@@ -21,19 +25,26 @@ function App() {
   }, []);
 
   React.useEffect(() => {
-    const identifier = setTimeout(() => {
-      setShow(true);
-    }, 3_000);
-
-    return () => clearTimeout(identifier);
-  });
+    if (secret !== ""){
+      const t = secret.split('').map((v)=> ({
+        char: v,
+        show: false
+      }));
+      setSecretCharCollection(t);
+    }
+  },[secret]);
   
   return (
-    <div>
-      { secret !== '' && secret.split('').map((v, i) => {
-        return <CharPlaceholderComponent key={i} char={v} show={show} />
-      }) }
-    </div>
+    <>
+      <div style={{ textAlign: 'center', marginTop: 16 }}>
+        { secretCharCollection.length > 0 && secretCharCollection.map((v, i) => {
+          return <CharPlaceholderComponent key={i} char={v.char} show={v.show} />
+        })}
+      </div>
+      <div style={{ textAlign: 'center', marginTop: 32 }}>
+        <input type="text" />
+      </div>
+    </>
   );
 }
 
