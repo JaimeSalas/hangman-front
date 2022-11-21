@@ -25,7 +25,7 @@ function App() {
   }, []);
 
   React.useEffect(() => {
-    if (secret !== ""){
+    if (secret !== ''){
       const t = secret.split('').map((v)=> ({
         char: v,
         show: false
